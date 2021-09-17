@@ -23,17 +23,19 @@ public class UserServiceImplementation implements UserService{
 
     @Override
     public User saveUser(User user) {
-        log.error("Saving user into database");
+        log.info("Saving new user {} into database", user.getName());
         return userRepo.save(user);
     }
 
     @Override
     public Role saveRole(Role role) {
+        log.info("Saving new role {} into database", role.getName());
         return roleRepo.save(role);
     }
 
     @Override
     public void addRoleToUser(String username, String roleName) {
+        log.info("Adding role {} to user {}",  roleName,  username);
         User user = userRepo.findByName(username);
         Role role =  roleRepo.findByName(roleName);
         user.getRoles().add(role);///this needs Tranactional
@@ -41,11 +43,15 @@ public class UserServiceImplementation implements UserService{
 
     @Override
     public User getUser(String username) {
-        return null;
+        log.info("Fetching user {} ", username);
+        return userRepo.findByName(username);
     }
 
     @Override
     public List<User> getUsers() {
-        return null;
+        log.info("Fetching all users");
+        return userRepo.findAll();
     }
+
+
 }
